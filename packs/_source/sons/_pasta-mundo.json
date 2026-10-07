@@ -1,0 +1,20 @@
+{
+  "_id": "ZzHXTrwxZjHgisrs",
+  "name": "Mundo",
+  "type": "Macro",
+  "folder": null,
+  "sorting": "m",
+  "sort": 300000,
+  "color": "#2F5D8A",
+  "description": "",
+  "flags": {},
+  "_stats": {
+    "systemId": null,
+    "systemVersion": null,
+    "coreVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!folders!ZzHXTrwxZjHgisrs"
+}

@@ -1,0 +1,29 @@
+{
+  "_id": "Hq7XD4nfNyIasggY",
+  "name": "Trovão",
+  "type": "script",
+  "img": "modules/tiagos-toolkit-sons/icons/trovao.svg",
+  "scope": "global",
+  "command": "/* Trovão — Tiago's Toolkit: Sons */\nconst CAMINHOS = [\"psfx.cantrips.thunderclap\"];\n\nif (!game.modules.get(\"sequencer\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo Sequencer ativo.\");\nif (!game.modules.get(\"psfx\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo PSFX ativo.\");\nif (!CAMINHOS.every(c => Sequencer.Database.entryExists(c)))\n  return ui.notifications.warn(\"Este som não foi encontrado no PSFX. Atualize o módulo PSFX.\");\n\nconst seq = new Sequence();\nseq.sound().file(\"psfx.cantrips.thunderclap\").volume(1);\nseq.play();\n",
+  "folder": "ZzHXTrwxZjHgisrs",
+  "sort": 19000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "tiagos-toolkit-sons": {
+      "slug": "trovao",
+      "pasta": "Mundo",
+      "versao": "0.1.0"
+    }
+  },
+  "_stats": {
+    "systemId": null,
+    "systemVersion": null,
+    "coreVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!macros!Hq7XD4nfNyIasggY"
+}

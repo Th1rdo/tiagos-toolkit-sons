@@ -1,0 +1,29 @@
+{
+  "_id": "YN7qpgHHYXJVTrJU",
+  "name": "Fechar porta",
+  "type": "script",
+  "img": "modules/tiagos-toolkit-sons/icons/fechar-porta.svg",
+  "scope": "global",
+  "command": "/* Fechar porta — Tiago's Toolkit: Sons */\nconst CAMINHOS = [\"psfx.doors.clean.close.wooden.01\"];\n\nif (!game.modules.get(\"sequencer\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo Sequencer ativo.\");\nif (!game.modules.get(\"psfx\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo PSFX ativo.\");\nif (!CAMINHOS.every(c => Sequencer.Database.entryExists(c)))\n  return ui.notifications.warn(\"Este som não foi encontrado no PSFX. Atualize o módulo PSFX.\");\n\nconst seq = new Sequence();\nseq.sound().file(\"psfx.doors.clean.close.wooden.01\").volume(1);\nseq.play();\n",
+  "folder": "ZzHXTrwxZjHgisrs",
+  "sort": 16000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "tiagos-toolkit-sons": {
+      "slug": "fechar-porta",
+      "pasta": "Mundo",
+      "versao": "0.1.0"
+    }
+  },
+  "_stats": {
+    "systemId": null,
+    "systemVersion": null,
+    "coreVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!macros!YN7qpgHHYXJVTrJU"
+}

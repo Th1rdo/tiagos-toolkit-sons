@@ -1,0 +1,3 @@
+{ "name": "tiagos-toolkit-sons", "private": true, "type": "module",
+  "scripts": { "build": "python3 build/gerar.py && node build/compilar.mjs" },
+  "devDependencies": { "classic-level": "^1.4.1" } }
