@@ -1,0 +1,29 @@
+{
+  "_id": "Q9fgTksNQLBKKc58",
+  "name": "Trancar com chave",
+  "type": "script",
+  "img": "modules/tiagos-toolkit-sons/icons/trancar-com-chave.svg",
+  "scope": "global",
+  "command": "/* Trancar com chave — Tiago's Toolkit: Sons */\nconst PASTA = \"modules/tiagos-toolkit-sons/audio/\";\nconst sorteia = l => l[Math.floor(Math.random() * l.length)];\nconst toca = (clips, volume) => foundry.audio.AudioHelper.play(\n  { src: `${PASTA}${sorteia(clips)}.mp3`, volume, autoplay: true, loop: false, channel: \"interface\" }, true);\n\ntoca([\"chave-1\", \"chave-2\"], 1);\n",
+  "folder": "ZzHXTrwxZjHgisrs",
+  "sort": 26000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "tiagos-toolkit-sons": {
+      "slug": "trancar-com-chave",
+      "pasta": "Mundo",
+      "versao": "0.2.0"
+    }
+  },
+  "_stats": {
+    "systemId": null,
+    "systemVersion": null,
+    "coreVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!macros!Q9fgTksNQLBKKc58"
+}

@@ -4,8 +4,8 @@
   "type": "script",
   "img": "modules/tiagos-toolkit-sons/icons/rajada.svg",
   "scope": "global",
-  "command": "/* Rajada — Tiago's Toolkit: Sons */\nconst CAMINHOS = [\"psfx.ranged-weapons.guns.single-fire.revolver.0\", \"psfx.ranged-weapons.guns.single-fire.revolver.2\", \"psfx.ranged-weapons.guns.single-fire.revolver.4\"];\n\nif (!game.modules.get(\"sequencer\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo Sequencer ativo.\");\nif (!game.modules.get(\"psfx\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo PSFX ativo.\");\nif (!CAMINHOS.every(c => Sequencer.Database.entryExists(c)))\n  return ui.notifications.warn(\"Este som não foi encontrado no PSFX. Atualize o módulo PSFX.\");\n\nconst seq = new Sequence();\nseq.sound().file(\"psfx.ranged-weapons.guns.single-fire.revolver.0\").volume(1);\nseq.sound().file(\"psfx.ranged-weapons.guns.single-fire.revolver.2\").volume(0.95).delay(170);\nseq.sound().file(\"psfx.ranged-weapons.guns.single-fire.revolver.4\").volume(0.9).delay(340);\nseq.play();\n",
-  "folder": "5lBLH73XNJaRe1JJ",
+  "command": "/* Rajada — Tiago's Toolkit: Sons */\nconst PASTA = \"modules/tiagos-toolkit-sons/audio/\";\nconst sorteia = l => l[Math.floor(Math.random() * l.length)];\nconst toca = (clips, volume) => foundry.audio.AudioHelper.play(\n  { src: `${PASTA}${sorteia(clips)}.mp3`, volume, autoplay: true, loop: false, channel: \"interface\" }, true);\n\ntoca([\"fuzil-1\", \"fuzil-2\", \"fuzil-3\", \"fuzil-4\"], 1);\nsetTimeout(() => toca([\"fuzil-1\", \"fuzil-2\", \"fuzil-3\", \"fuzil-4\"], 0.9), 150);\nsetTimeout(() => toca([\"fuzil-1\", \"fuzil-2\", \"fuzil-3\", \"fuzil-4\"], 0.85), 300);\n",
+  "folder": "7KwA16I78KF5YVld",
   "sort": 7000,
   "ownership": {
     "default": 0
@@ -13,8 +13,8 @@
   "flags": {
     "tiagos-toolkit-sons": {
       "slug": "rajada",
-      "pasta": "Combate",
-      "versao": "0.1.0"
+      "pasta": "Armas de fogo",
+      "versao": "0.2.0"
     }
   },
   "_stats": {

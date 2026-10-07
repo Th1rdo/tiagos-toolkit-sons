@@ -5,7 +5,7 @@
   "img": "modules/tiagos-toolkit-sons/icons/recarregar.svg",
   "scope": "global",
   "command": "/* Recarregar — Tiago's Toolkit: Sons */\nconst CAMINHOS = [\"psfx.ranged-weapons.guns.prepare.revolver\"];\n\nif (!game.modules.get(\"sequencer\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo Sequencer ativo.\");\nif (!game.modules.get(\"psfx\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo PSFX ativo.\");\nif (!CAMINHOS.every(c => Sequencer.Database.entryExists(c)))\n  return ui.notifications.warn(\"Este som não foi encontrado no PSFX. Atualize o módulo PSFX.\");\n\nconst seq = new Sequence();\nseq.sound().file(\"psfx.ranged-weapons.guns.prepare.revolver\").volume(0.9);\nseq.play();\n",
-  "folder": "5lBLH73XNJaRe1JJ",
+  "folder": "7KwA16I78KF5YVld",
   "sort": 8000,
   "ownership": {
     "default": 0
@@ -13,8 +13,8 @@
   "flags": {
     "tiagos-toolkit-sons": {
       "slug": "recarregar",
-      "pasta": "Combate",
-      "versao": "0.1.0"
+      "pasta": "Armas de fogo",
+      "versao": "0.2.0"
     }
   },
   "_stats": {

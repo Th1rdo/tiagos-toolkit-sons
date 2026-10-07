@@ -4,9 +4,9 @@
   "type": "script",
   "img": "modules/tiagos-toolkit-sons/icons/passos.svg",
   "scope": "global",
-  "command": "/* Passos — Tiago's Toolkit: Sons */\nconst CAMINHOS = [\"psfx.creature.movement.footsteps.outdoors.001.sequence\"];\n\nif (!game.modules.get(\"sequencer\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo Sequencer ativo.\");\nif (!game.modules.get(\"psfx\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo PSFX ativo.\");\nif (!CAMINHOS.every(c => Sequencer.Database.entryExists(c)))\n  return ui.notifications.warn(\"Este som não foi encontrado no PSFX. Atualize o módulo PSFX.\");\n\nconst seq = new Sequence();\nseq.sound().file(\"psfx.creature.movement.footsteps.outdoors.001.sequence\").volume(0.9).duration(3500).fadeOutAudio(400);\nseq.play();\n",
+  "command": "/* Passos — Tiago's Toolkit: Sons */\nconst PASTA = \"modules/tiagos-toolkit-sons/audio/\";\nconst sorteia = l => l[Math.floor(Math.random() * l.length)];\nconst toca = (clips, volume) => foundry.audio.AudioHelper.play(\n  { src: `${PASTA}${sorteia(clips)}.mp3`, volume, autoplay: true, loop: false, channel: \"interface\" }, true);\n\ntoca([\"passos-1\", \"passos-2\", \"passos-3\"], 0.9);\n",
   "folder": "HDvjBaDH8S8WsrbW",
-  "sort": 12000,
+  "sort": 20000,
   "ownership": {
     "default": 0
   },
@@ -14,7 +14,7 @@
     "tiagos-toolkit-sons": {
       "slug": "passos",
       "pasta": "Criaturas",
-      "versao": "0.1.0"
+      "versao": "0.2.0"
     }
   },
   "_stats": {

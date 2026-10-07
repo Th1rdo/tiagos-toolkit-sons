@@ -1,0 +1,29 @@
+{
+  "_id": "N2c7iCCA38K10tjq",
+  "name": "Explosão",
+  "type": "script",
+  "img": "modules/tiagos-toolkit-sons/icons/explosao.svg",
+  "scope": "global",
+  "command": "/* Explosão — Tiago's Toolkit: Sons */\nconst PASTA = \"modules/tiagos-toolkit-sons/audio/\";\nconst sorteia = l => l[Math.floor(Math.random() * l.length)];\nconst toca = (clips, volume) => foundry.audio.AudioHelper.play(\n  { src: `${PASTA}${sorteia(clips)}.mp3`, volume, autoplay: true, loop: false, channel: \"interface\" }, true);\n\ntoca([\"explosao-1\"], 1);\n",
+  "folder": "7KwA16I78KF5YVld",
+  "sort": 9000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "tiagos-toolkit-sons": {
+      "slug": "explosao",
+      "pasta": "Armas de fogo",
+      "versao": "0.2.0"
+    }
+  },
+  "_stats": {
+    "systemId": null,
+    "systemVersion": null,
+    "coreVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!macros!N2c7iCCA38K10tjq"
+}

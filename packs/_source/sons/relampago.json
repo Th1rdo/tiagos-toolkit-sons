@@ -6,7 +6,7 @@
   "scope": "global",
   "command": "/* Relâmpago — Tiago's Toolkit: Sons */\nconst CAMINHOS = [\"psfx.impacts.magicaleffects.lightning\", \"psfx.cantrips.thunderclap\"];\n\nif (!game.modules.get(\"sequencer\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo Sequencer ativo.\");\nif (!game.modules.get(\"psfx\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo PSFX ativo.\");\nif (!CAMINHOS.every(c => Sequencer.Database.entryExists(c)))\n  return ui.notifications.warn(\"Este som não foi encontrado no PSFX. Atualize o módulo PSFX.\");\n\nconst seq = new Sequence();\nseq.sound().file(\"psfx.impacts.magicaleffects.lightning\").volume(1);\nseq.sound().file(\"psfx.cantrips.thunderclap\").volume(0.7).delay(350);\nseq.play();\n",
   "folder": "ZzHXTrwxZjHgisrs",
-  "sort": 20000,
+  "sort": 36000,
   "ownership": {
     "default": 0
   },
@@ -14,7 +14,7 @@
     "tiagos-toolkit-sons": {
       "slug": "relampago",
       "pasta": "Mundo",
-      "versao": "0.1.0"
+      "versao": "0.2.0"
     }
   },
   "_stats": {

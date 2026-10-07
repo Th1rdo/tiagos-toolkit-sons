@@ -1,8 +1,8 @@
 {
   "id": "tiagos-toolkit-sons",
   "title": "Tiago's Toolkit: Sons",
-  "description": "Compêndio de macros de um clique que tocam sons do PSFX para toda a mesa: cortes, socos, tiros, portas, trovões, rugidos. Arrasta do compêndio para a hotbar e clica.",
-  "version": "0.1.0",
+  "description": "Compêndio de macros de um clique que tocam um som para toda a mesa: tiros (até com silenciador), socos, lâminas, portas, vidro, trovões, rugidos. Arrasta do compêndio para a hotbar e clica.",
+  "version": "0.2.0",
   "compatibility": {
     "minimum": "13",
     "verified": "14"
@@ -11,6 +11,9 @@
     {
       "name": "Th1rdo"
     }
+  ],
+  "esmodules": [
+    "scripts/main.js"
   ],
   "packs": [
     {
@@ -28,21 +31,21 @@
     }
   ],
   "relationships": {
-    "requires": [
+    "recommends": [
       {
         "id": "sequencer",
         "type": "module",
-        "compatibility": {}
+        "reason": "sons do PSFX (rugido, trovão…)"
       },
       {
         "id": "psfx",
         "type": "module",
-        "compatibility": {}
+        "reason": "sons do PSFX (rugido, trovão…)"
       }
     ]
   },
   "url": "https://github.com/Th1rdo/tiagos-toolkit-sons",
   "manifest": "https://github.com/Th1rdo/tiagos-toolkit-sons/releases/latest/download/module.json",
-  "download": "https://github.com/Th1rdo/tiagos-toolkit-sons/releases/download/v0.1.0/tiagos-toolkit-sons.zip",
+  "download": "https://github.com/Th1rdo/tiagos-toolkit-sons/releases/download/v0.2.0/tiagos-toolkit-sons.zip",
   "readme": "https://github.com/Th1rdo/tiagos-toolkit-sons#readme"
 }

@@ -1,0 +1,29 @@
+{
+  "_id": "xOHNizYVISq8YF4e",
+  "name": "Porta rangendo",
+  "type": "script",
+  "img": "modules/tiagos-toolkit-sons/icons/porta-rangendo.svg",
+  "scope": "global",
+  "command": "/* Porta rangendo — Tiago's Toolkit: Sons */\nconst PASTA = \"modules/tiagos-toolkit-sons/audio/\";\nconst sorteia = l => l[Math.floor(Math.random() * l.length)];\nconst toca = (clips, volume) => foundry.audio.AudioHelper.play(\n  { src: `${PASTA}${sorteia(clips)}.mp3`, volume, autoplay: true, loop: false, channel: \"interface\" }, true);\n\ntoca([\"porta-ranger-1\", \"porta-ranger-2\"], 0.9);\n",
+  "folder": "ZzHXTrwxZjHgisrs",
+  "sort": 25000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "tiagos-toolkit-sons": {
+      "slug": "porta-rangendo",
+      "pasta": "Mundo",
+      "versao": "0.2.0"
+    }
+  },
+  "_stats": {
+    "systemId": null,
+    "systemVersion": null,
+    "coreVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!macros!xOHNizYVISq8YF4e"
+}

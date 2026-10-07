@@ -4,17 +4,17 @@
   "type": "script",
   "img": "modules/tiagos-toolkit-sons/icons/flecha.svg",
   "scope": "global",
-  "command": "/* Flecha — Tiago's Toolkit: Sons */\nconst CAMINHOS = [\"psfx.ranged-weapons.longbow.v1\"];\n\nif (!game.modules.get(\"sequencer\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo Sequencer ativo.\");\nif (!game.modules.get(\"psfx\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo PSFX ativo.\");\nif (!CAMINHOS.every(c => Sequencer.Database.entryExists(c)))\n  return ui.notifications.warn(\"Este som não foi encontrado no PSFX. Atualize o módulo PSFX.\");\n\nconst seq = new Sequence();\nseq.sound().file(\"psfx.ranged-weapons.longbow.v1\").volume(1);\nseq.play();\n",
-  "folder": "5lBLH73XNJaRe1JJ",
-  "sort": 9000,
+  "command": "/* Flecha — Tiago's Toolkit: Sons */\nconst CAMINHOS = [\"psfx.ranged-weapons.longbow.v1\"];\n\nif (!game.modules.get(\"sequencer\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo Sequencer ativo.\");\nif (!game.modules.get(\"psfx\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo PSFX ativo.\");\nif (!CAMINHOS.every(c => Sequencer.Database.entryExists(c)))\n  return ui.notifications.warn(\"Este som não foi encontrado no PSFX. Atualize o módulo PSFX.\");\n\nconst PASTA = \"modules/tiagos-toolkit-sons/audio/\";\nconst sorteia = l => l[Math.floor(Math.random() * l.length)];\nconst toca = (clips, volume) => foundry.audio.AudioHelper.play(\n  { src: `${PASTA}${sorteia(clips)}.mp3`, volume, autoplay: true, loop: false, channel: \"interface\" }, true);\n\nconst seq = new Sequence();\nseq.sound().file(\"psfx.ranged-weapons.longbow.v1\").volume(1);\nsetTimeout(() => toca([\"flecha-1\"], 0.8), 120);\nseq.play();\n",
+  "folder": "qcZD8aP6SYnpfwvV",
+  "sort": 16000,
   "ownership": {
     "default": 0
   },
   "flags": {
     "tiagos-toolkit-sons": {
       "slug": "flecha",
-      "pasta": "Combate",
-      "versao": "0.1.0"
+      "pasta": "Corpo a corpo",
+      "versao": "0.2.0"
     }
   },
   "_stats": {

@@ -4,17 +4,17 @@
   "type": "script",
   "img": "modules/tiagos-toolkit-sons/icons/pancada.svg",
   "scope": "global",
-  "command": "/* Pancada — Tiago's Toolkit: Sons */\nconst CAMINHOS = [\"psfx.weapon-swooshes.heavy.v1\", \"psfx.impacts.bludgeoning.v1\"];\n\nif (!game.modules.get(\"sequencer\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo Sequencer ativo.\");\nif (!game.modules.get(\"psfx\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo PSFX ativo.\");\nif (!CAMINHOS.every(c => Sequencer.Database.entryExists(c)))\n  return ui.notifications.warn(\"Este som não foi encontrado no PSFX. Atualize o módulo PSFX.\");\n\nconst seq = new Sequence();\nseq.sound().file(\"psfx.weapon-swooshes.heavy.v1\").volume(0.6);\nseq.sound().file(\"psfx.impacts.bludgeoning.v1\").volume(1).delay(130);\nseq.play();\n",
-  "folder": "5lBLH73XNJaRe1JJ",
-  "sort": 5000,
+  "command": "/* Pancada — Tiago's Toolkit: Sons */\nconst PASTA = \"modules/tiagos-toolkit-sons/audio/\";\nconst sorteia = l => l[Math.floor(Math.random() * l.length)];\nconst toca = (clips, volume) => foundry.audio.AudioHelper.play(\n  { src: `${PASTA}${sorteia(clips)}.mp3`, volume, autoplay: true, loop: false, channel: \"interface\" }, true);\n\ntoca([\"pancada-1\", \"pancada-2\", \"pancada-3\", \"pancada-4\"], 1);\n",
+  "folder": "qcZD8aP6SYnpfwvV",
+  "sort": 11000,
   "ownership": {
     "default": 0
   },
   "flags": {
     "tiagos-toolkit-sons": {
       "slug": "pancada",
-      "pasta": "Combate",
-      "versao": "0.1.0"
+      "pasta": "Corpo a corpo",
+      "versao": "0.2.0"
     }
   },
   "_stats": {

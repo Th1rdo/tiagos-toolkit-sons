@@ -1,11 +1,11 @@
 {
-  "_id": "5lBLH73XNJaRe1JJ",
-  "name": "Combate",
+  "_id": "qcZD8aP6SYnpfwvV",
+  "name": "Corpo a corpo",
   "type": "Macro",
   "folder": null,
   "sorting": "m",
-  "sort": 100000,
-  "color": "#B1161A",
+  "sort": 200000,
+  "color": "#8A4B1F",
   "description": "",
   "flags": {},
   "_stats": {
@@ -16,5 +16,5 @@
     "modifiedTime": null,
     "lastModifiedBy": null
   },
-  "_key": "!folders!5lBLH73XNJaRe1JJ"
+  "_key": "!folders!qcZD8aP6SYnpfwvV"
 }

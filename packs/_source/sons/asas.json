@@ -6,7 +6,7 @@
   "scope": "global",
   "command": "/* Asas — Tiago's Toolkit: Sons */\nconst CAMINHOS = [\"psfx.creature.movement.flight.wings.small\"];\n\nif (!game.modules.get(\"sequencer\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo Sequencer ativo.\");\nif (!game.modules.get(\"psfx\")?.active)\n  return ui.notifications.warn(\"Este som precisa do módulo PSFX ativo.\");\nif (!CAMINHOS.every(c => Sequencer.Database.entryExists(c)))\n  return ui.notifications.warn(\"Este som não foi encontrado no PSFX. Atualize o módulo PSFX.\");\n\nconst seq = new Sequence();\nseq.sound().file(\"psfx.creature.movement.flight.wings.small\").volume(0.9);\nseq.play();\n",
   "folder": "HDvjBaDH8S8WsrbW",
-  "sort": 13000,
+  "sort": 21000,
   "ownership": {
     "default": 0
   },
@@ -14,7 +14,7 @@
     "tiagos-toolkit-sons": {
       "slug": "asas",
       "pasta": "Criaturas",
-      "versao": "0.1.0"
+      "versao": "0.2.0"
     }
   },
   "_stats": {
