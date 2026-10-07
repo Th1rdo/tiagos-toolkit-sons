@@ -1,0 +1,29 @@
+{
+  "_id": "3T5uiphfDtl2RNAF",
+  "name": "Grito de morte",
+  "type": "script",
+  "img": "modules/tiagos-toolkit-sons/icons/grito-de-morte.svg",
+  "scope": "global",
+  "command": "/* Grito de morte — Tiago's Toolkit: Sons */\nfoundry.audio.AudioHelper.play(\n  { src: \"https://assets.forge-vtt.com/66db4a14be3d73c561d3484a/MAIN/AKRASIA/Sons/Efeitos/grito-de-morte.mp3\", volume: 0.8, autoplay: true, loop: false, channel: \"interface\" }, true);\n",
+  "folder": null,
+  "sort": 7000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "tiagos-toolkit-sons": {
+      "slug": "grito-de-morte",
+      "ficheiro": "grito-de-morte",
+      "versao": "0.3.0"
+    }
+  },
+  "_stats": {
+    "systemId": null,
+    "systemVersion": null,
+    "coreVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!macros!3T5uiphfDtl2RNAF"
+}

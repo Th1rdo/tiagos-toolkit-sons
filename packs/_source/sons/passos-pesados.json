@@ -1,0 +1,29 @@
+{
+  "_id": "TShTL43eFY3NtsuK",
+  "name": "Passos pesados",
+  "type": "script",
+  "img": "modules/tiagos-toolkit-sons/icons/passos-pesados.svg",
+  "scope": "global",
+  "command": "/* Passos pesados — Tiago's Toolkit: Sons */\nfoundry.audio.AudioHelper.play(\n  { src: \"https://assets.forge-vtt.com/66db4a14be3d73c561d3484a/MAIN/AKRASIA/Sons/Efeitos/passos-pesados.mp3\", volume: 0.8, autoplay: true, loop: false, channel: \"interface\" }, true);\n",
+  "folder": null,
+  "sort": 10000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "tiagos-toolkit-sons": {
+      "slug": "passos-pesados",
+      "ficheiro": "passos-pesados",
+      "versao": "0.3.0"
+    }
+  },
+  "_stats": {
+    "systemId": null,
+    "systemVersion": null,
+    "coreVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!macros!TShTL43eFY3NtsuK"
+}

@@ -5,64 +5,28 @@ import os, re, json, shutil, hashlib, unicodedata
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODULO_ID = "tiagos-toolkit-sons"
-VERSAO = "0.2.0"
+VERSAO = "0.3.0"
 GH = "https://github.com/Th1rdo/tiagos-toolkit-sons"
 FONTE_PSFX = os.path.expanduser(
     "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/foundryRevision/04 Assets/_fonte/psfx-dbpaths.txt")
 
-PASTAS = {  # nome -> cor do ícone
-    "Armas de fogo": "#B1161A",
-    "Corpo a corpo": "#8A4B1F",
-    "Criaturas": "#3F6B3A",
-    "Mundo":    "#2F5D8A",
-}
+# Os sons são do Tiago (pasta «sound effects»), tratados por build/processar.py e guardados no Forge dele —
+# não vão no repositório (origem/licença desconhecida, como os passos do Andares). As macros apontam para lá.
+FORGE = "https://assets.forge-vtt.com/66db4a14be3d73c561d3484a/MAIN/AKRASIA/Sons/Efeitos/"
+COR = "#2B2B33"
 
-# camada de ficheiro:  ("a", [clips...], volume, atraso_ms)  → um clip sorteado de audio/<clip>.mp3
-# camada de PSFX:      ("p", dbPath, volume, atraso_ms[, duração_ms]) → prefixo parcial sorteia variante
-# regra: até 3 camadas por macro
-def n(base, k): return [f"{base}-{i}" for i in range(1, k + 1)]
-
+# (nome da macro, glifo, ficheiro no Forge sem .mp3)
 SONS = [
- # ---- Armas de fogo
- ("Armas de fogo", "Pistola",         "gun",      [("a", n("pistola", 3), 1, 0)]),
- ("Armas de fogo", "Revólver",        "gun",      [("p", "psfx.ranged-weapons.guns.single-fire.revolver", 1, 0)]),
- ("Armas de fogo", "Tiro silenciado", "silencer", [("a", n("silenciado", 3), 1, 0)]),
- ("Armas de fogo", "Rifle",           "rifle",    [("a", n("rifle", 3), 1, 0)]),
- ("Armas de fogo", "Fuzil",           "rifle",    [("a", n("fuzil", 4), 1, 0)]),
- ("Armas de fogo", "Espingarda",      "shotgun",  [("a", ["espingarda-1"], 1, 0)]),
- ("Armas de fogo", "Rajada",          "burst",    [("a", n("fuzil", 4), 1, 0), ("a", n("fuzil", 4), .9, 150), ("a", n("fuzil", 4), .85, 300)]),
- ("Armas de fogo", "Recarregar",      "reload",   [("p", "psfx.ranged-weapons.guns.prepare.revolver", .9, 0)]),
- ("Armas de fogo", "Explosão",        "explosion",[("a", ["explosao-1"], 1, 0)]),
- # ---- Corpo a corpo
- ("Corpo a corpo", "Soco",            "punch",    [("a", n("soco", 5), 1, 0)]),
- ("Corpo a corpo", "Pancada",         "club",     [("a", n("pancada", 4), 1, 0)]),
- ("Corpo a corpo", "Corte",           "slash",    [("a", n("corte", 2), .9, 0), ("a", n("facada", 3), .6, 90)]),
- ("Corpo a corpo", "Facada",          "stab",     [("a", n("facada", 3), 1, 0)]),
- ("Corpo a corpo", "Choque de lâminas", "clash",  [("a", n("lamina", 5), .9, 0)]),
- ("Corpo a corpo", "Sacar lâmina",    "unsheathe",[("a", n("sacar-lamina", 2), .9, 0)]),
- ("Corpo a corpo", "Flecha",          "arrow",    [("p", "psfx.ranged-weapons.longbow.v1", 1, 0), ("a", ["flecha-1"], .8, 120)]),
- ("Corpo a corpo", "Taser",           "lightning",[("a", n("taser", 2), 1, 0)]),
- # ---- Criaturas
- ("Criaturas", "Rugido",           "roar",   [("p", "psfx.creature.dragons.roar.small", 1, 0)]),
- ("Criaturas", "Garras",           "claws",  [("p", "psfx.weapon-swooshes.heavy.v1", .5, 0), ("p", "psfx.creature.dragons.attacks.rend", .9, 90)]),
- ("Criaturas", "Passos",           "steps",  [("a", n("passos", 3), .9, 0)]),
- ("Criaturas", "Asas",             "wings",  [("p", "psfx.creature.movement.flight.wings.small", .9, 0)]),
- ("Criaturas", "Emergir do chão",  "burrow", [("p", "psfx.creature.movement.burrow.breach", 1, 0)]),
- # ---- Mundo
- ("Mundo", "Abrir porta",          "door-open",  [("a", ["porta-abrir-1"], 1, 0)]),
- ("Mundo", "Fechar porta",         "door-close", [("a", n("porta-fechar", 4), 1, 0)]),
- ("Mundo", "Porta rangendo",       "door-open",  [("a", n("porta-ranger", 2), .9, 0)]),
- ("Mundo", "Trancar com chave",    "key",        [("a", n("chave", 2), 1, 0)]),
- ("Mundo", "Algemas",              "cuffs",      [("a", n("algemas", 2), 1, 0)]),
- ("Mundo", "Vidro quebrando",      "glass",      [("a", n("vidro", 5), 1, 0)]),
- ("Mundo", "Sino",                 "bell",       [("a", n("sino", 3), 1, 0)]),
- ("Mundo", "Gongo",                "gong",       [("a", n("gongo", 2), 1, 0)]),
- ("Mundo", "Beber frasco",         "potion",     [("a", ["frasco-1"], .9, 0), ("a", ["frasco-2"], .8, 450)]),
- ("Mundo", "Moedas",               "coin",       [("a", n("moedas", 2), 1, 0)]),
- ("Mundo", "Isqueiro",             "flame",      [("a", ["isqueiro-1"], 1, 0)]),
- ("Mundo", "Rangido do chão",      "creak",      [("a", ["rangido-1"], 1, 0)]),
- ("Mundo", "Trovão",               "thunder",    [("p", "psfx.cantrips.thunderclap", 1, 0)]),
- ("Mundo", "Relâmpago",            "lightning",  [("p", "psfx.impacts.magicaleffects.lightning", 1, 0), ("p", "psfx.cantrips.thunderclap", .7, 350)]),
+ ("Pistola",            "gun",       "pistola"),
+ ("Soco",               "punch",     "soco"),
+ ("Golpe de lâmina",    "slash",     "golpe-de-lamina"),
+ ("Carne cortada",      "stab",      "carne-cortada"),
+ ("Carne a crescer",    "blob",      "carne-a-crescer"),
+ ("Descarga elétrica",  "lightning", "descarga-eletrica"),
+ ("Grito de morte",     "scream",    "grito-de-morte"),
+ ("Abrir porta",        "door-open", "abrir-porta"),
+ ("Passos",             "steps",     "passos"),
+ ("Passos pesados",     "steps",     "passos-pesados"),
 ]
 
 # glifos 64x64, traço claro sobre o cartão da pasta
@@ -81,6 +45,8 @@ GLIFOS = {
  "creak":  '<path d="M8 46h48M8 46l6-12h36l6 12M22 34v12M42 34v12" stroke-width="4"/>',
  "cuffs":  '<circle cx="20" cy="36" r="12" stroke-width="5"/><circle cx="44" cy="36" r="12" stroke-width="5"/><path d="M28 30h8" stroke-width="4"/>',
  "key":    '<circle cx="22" cy="24" r="10" stroke-width="5"/><path d="M29 31l22 22M42 44l6-6M48 50l6-6" stroke-width="5"/>',
+ "scream": '<ellipse cx="32" cy="28" rx="16" ry="20" stroke-width="4"/><ellipse cx="25" cy="23" rx="3" ry="4" fill="#f5f5fa"/><ellipse cx="39" cy="23" rx="3" ry="4" fill="#f5f5fa"/><ellipse cx="32" cy="37" rx="5" ry="8" fill="#f5f5fa"/>',
+ "blob":   '<path d="M20 44c-8-4-8-16 0-20 2-10 14-14 20-6 10-2 16 8 10 16 4 8-4 16-12 12-6 6-16 4-18-2z" stroke-width="4"/><circle cx="28" cy="32" r="3" fill="#f5f5fa"/><circle cx="38" cy="38" r="2" fill="#f5f5fa"/>',
  "slash":  '<path d="M14 50L50 14" stroke-width="6"/><path d="M22 54L54 22M10 42L42 10" stroke-width="3" opacity=".6"/>',
  "sword":  '<path d="M32 8v34M24 42h16M32 42v12" stroke-width="5"/><path d="M28 14l4-6 4 6" stroke-width="3"/>',
  "stab":   '<path d="M12 52L46 18" stroke-width="5"/><path d="M46 18l6-10 2 12z" fill="#f5f5fa" stroke-width="2"/>',
@@ -121,113 +87,54 @@ def icone(cor, glifo):
             f'<rect x="2.5" y="2.5" width="59" height="59" rx="10" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="3"/>'
             f'<g fill="none" stroke="#f5f5fa" stroke-linecap="round" stroke-linejoin="round">{glifo}</g></svg>')
 
-def macro(nome, camadas):
-    psfx = [c for c in camadas if c[0] == "p"]
-    out = [f"/* {nome} — Tiago's Toolkit: Sons */"]
-    if psfx:
-        out += [f"const CAMINHOS = {json.dumps([c[1] for c in psfx])};", "",
-                'if (!game.modules.get("sequencer")?.active)',
-                '  return ui.notifications.warn("Este som precisa do módulo Sequencer ativo.");',
-                'if (!game.modules.get("psfx")?.active)',
-                '  return ui.notifications.warn("Este som precisa do módulo PSFX ativo.");',
-                'if (!CAMINHOS.every(c => Sequencer.Database.entryExists(c)))',
-                '  return ui.notifications.warn("Este som não foi encontrado no PSFX. Atualize o módulo PSFX.");', ""]
-    if any(c[0] == "a" for c in camadas):
-        out += [f'const PASTA = "modules/{MODULO_ID}/audio/";',
-                'const sorteia = l => l[Math.floor(Math.random() * l.length)];',
-                'const toca = (clips, volume) => foundry.audio.AudioHelper.play(',
-                '  { src: `${PASTA}${sorteia(clips)}.mp3`, volume, autoplay: true, loop: false, channel: "interface" }, true);', ""]
-    if psfx: out.append("const seq = new Sequence();")
-    for c in camadas:
-        if c[0] == "a":
-            _, clips, vol, atraso = c
-            chamada = f"toca({json.dumps(clips)}, {vol})"
-            out.append(f"setTimeout(() => {chamada}, {atraso});" if atraso else chamada + ";")
-        else:
-            _, caminho, vol, atraso, *resto = c
-            l = f'seq.sound().file("{caminho}").volume({vol})'
-            if atraso: l += f".delay({atraso})"
-            if resto: l += f".duration({resto[0]}).fadeOutAudio(400)"
-            out.append(l + ";")
-    if psfx: out.append("seq.play();")
-    return "\n".join(out) + "\n"
-
-def conferir_audio():
-    for _, nome, _, camadas in SONS:
-        for c in camadas:
-            if c[0] == "a":
-                for clip in c[1]:
-                    if not os.path.exists(os.path.join(RAIZ, "audio", clip + ".mp3")):
-                        raise SystemExit(f"{nome}: falta audio/{clip}.mp3")
-
-def verificar(todos):
-    if not os.path.exists(FONTE_PSFX):
-        print("(sem psfx-dbpaths.txt local: verificação de dbPaths saltada)"); return
-    linhas = open(FONTE_PSFX, encoding="utf-8").read().split()
-    for c in todos:
-        if not any(l == c or l.startswith(c + ".") for l in linhas):
-            raise SystemExit(f"dbPath inexistente: {c}")
-    print(f"{len(set(todos))} dbPaths conferidos contra o PSFX")
+def macro(nome, ficheiro):
+    return f"""/* {nome} — Tiago's Toolkit: Sons */
+foundry.audio.AudioHelper.play(
+  {{ src: "{FORGE}{ficheiro}.mp3", volume: 0.8, autoplay: true, loop: false, channel: "interface" }}, true);
+"""
 
 def main():
-    for d in ("packs/_source/sons", "icons"):
+    for d in ("packs/_source/sons", "icons", "audio"):
         shutil.rmtree(os.path.join(RAIZ, d), ignore_errors=True)
+    for d in ("packs/_source/sons", "icons"):
         os.makedirs(os.path.join(RAIZ, d))
     src = os.path.join(RAIZ, "packs/_source/sons")
     stats = {"systemId": None, "systemVersion": None, "coreVersion": None,
              "createdTime": None, "modifiedTime": None, "lastModifiedBy": None}
 
-    verificar([c[1] for s in SONS for c in s[3] if c[0] == "p"])
-    conferir_audio()
-
-    ids_pasta = {}
-    for i, (nome, cor) in enumerate(PASTAS.items()):
-        pid = foundry_id(f"{MODULO_ID}:pasta:{nome}")
-        ids_pasta[nome] = pid
-        doc = {"_id": pid, "name": nome, "type": "Macro", "folder": None, "sorting": "m",
-               "sort": (i + 1) * 100000, "color": cor, "description": "", "flags": {},
-               "_stats": stats, "_key": f"!folders!{pid}"}
-        json.dump(doc, open(f"{src}/_pasta-{ascii_slug(nome)}.json", "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-
-    for n, (pasta, nome, glifo, camadas) in enumerate(SONS):
-        assert len(camadas) <= 3, nome
+    for n, (nome, glifo, ficheiro) in enumerate(SONS):
         slug = ascii_slug(nome)
         mid = foundry_id(f"{MODULO_ID}:{slug}")
-        open(os.path.join(RAIZ, "icons", f"{slug}.svg"), "w", encoding="utf-8").write(icone(PASTAS[pasta], GLIFOS[glifo]))
+        open(os.path.join(RAIZ, "icons", f"{slug}.svg"), "w", encoding="utf-8").write(icone(COR, GLIFOS[glifo]))
         doc = {"_id": mid, "name": nome, "type": "script", "img": f"modules/{MODULO_ID}/icons/{slug}.svg",
-               "scope": "global", "command": macro(nome, camadas), "folder": ids_pasta[pasta],
+               "scope": "global", "command": macro(nome, ficheiro), "folder": None,
                "sort": (n + 1) * 1000, "ownership": {"default": 0},
-               "flags": {MODULO_ID: {"slug": slug, "pasta": pasta, "versao": VERSAO}},
+               "flags": {MODULO_ID: {"slug": slug, "ficheiro": ficheiro, "versao": VERSAO}},
                "_stats": stats, "_key": f"!macros!{mid}"}
         json.dump(doc, open(f"{src}/{slug}.json", "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 
+    os.makedirs(os.path.join(RAIZ, "scripts"), exist_ok=True)
+    open(os.path.join(RAIZ, "scripts/main.js"), "w", encoding="utf-8").write(
+        "// Pré-carrega os sons para o primeiro clique já sair sem atraso. (gerado por build/gerar.py)\n"
+        f"const SONS = {json.dumps([FORGE + f + '.mp3' for _, _, f in SONS])};\n"
+        "Hooks.once(\"ready\", () => {\n"
+        "  for (const s of SONS) foundry.audio.AudioHelper.preloadSound(s).catch(() => {});\n"
+        "});\n")
+
     modulo = {
         "id": MODULO_ID, "title": "Tiago's Toolkit: Sons",
-        "description": "Compêndio de macros de um clique que tocam um som para toda a mesa: tiros (até com silenciador), socos, lâminas, portas, vidro, trovões, rugidos. Arrasta do compêndio para a hotbar e clica.",
+        "description": "Compêndio de macros de um clique que tocam um som para toda a mesa: pistola, soco, lâmina, carne, descarga, grito, porta, passos. Arrasta do compêndio para a hotbar e clica.",
         "version": VERSAO, "compatibility": {"minimum": "13", "verified": "14"},
         "authors": [{"name": "Th1rdo"}],
         "esmodules": ["scripts/main.js"],
         "packs": [{"name": "sons", "label": "Tiago's Toolkit — Sons", "path": "packs/sons", "type": "Macro",
                    "ownership": {"PLAYER": "OBSERVER", "TRUSTED": "OBSERVER", "ASSISTANT": "OWNER", "GAMEMASTER": "OWNER"},
                    "flags": {}}],
-        "relationships": {"recommends": [{"id": "sequencer", "type": "module", "reason": "sons do PSFX (rugido, trovão…)"},
-                                         {"id": "psfx", "type": "module", "reason": "sons do PSFX (rugido, trovão…)"}]},
         "url": GH, "manifest": f"{GH}/releases/latest/download/module.json",
         "download": f"{GH}/releases/download/v{VERSAO}/{MODULO_ID}.zip", "readme": f"{GH}#readme",
     }
     json.dump(modulo, open(os.path.join(RAIZ, "module.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-    clips = sorted(f for f in os.listdir(os.path.join(RAIZ, "audio")) if f.endswith(".mp3"))
-    os.makedirs(os.path.join(RAIZ, "scripts"), exist_ok=True)
-    open(os.path.join(RAIZ, "scripts/main.js"), "w", encoding="utf-8").write(
-        "// Pré-carrega os sons para o primeiro clique já sair sem atraso. (gerado por build/gerar.py)\n"
-        f"const CLIPS = {json.dumps(clips)};\n"
-        f"const PSFX = {json.dumps(sorted({c[1] for s in SONS for c in s[3] if c[0] == 'p'}))};\n"
-        "Hooks.once(\"ready\", () => {\n"
-        f"  for (const c of CLIPS) foundry.audio.AudioHelper.preloadSound(`modules/{MODULO_ID}/audio/${{c}}`).catch(() => {{}});\n"
-        "  if (game.modules.get(\"sequencer\")?.active && game.modules.get(\"psfx\")?.active)\n"
-        "    Sequencer.Preloader.preload(PSFX).catch(() => {});\n"
-        "});\n")
-    print(f"{len(SONS)} sons · {len(PASTAS)} pastas")
+    print(f"{len(SONS)} sons")
 
 if __name__ == "__main__":
     main()

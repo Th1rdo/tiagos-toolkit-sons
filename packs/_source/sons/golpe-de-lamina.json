@@ -1,0 +1,29 @@
+{
+  "_id": "XjtyMExZ7czBMwrD",
+  "name": "Golpe de lâmina",
+  "type": "script",
+  "img": "modules/tiagos-toolkit-sons/icons/golpe-de-lamina.svg",
+  "scope": "global",
+  "command": "/* Golpe de lâmina — Tiago's Toolkit: Sons */\nfoundry.audio.AudioHelper.play(\n  { src: \"https://assets.forge-vtt.com/66db4a14be3d73c561d3484a/MAIN/AKRASIA/Sons/Efeitos/golpe-de-lamina.mp3\", volume: 0.8, autoplay: true, loop: false, channel: \"interface\" }, true);\n",
+  "folder": null,
+  "sort": 3000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "tiagos-toolkit-sons": {
+      "slug": "golpe-de-lamina",
+      "ficheiro": "golpe-de-lamina",
+      "versao": "0.3.0"
+    }
+  },
+  "_stats": {
+    "systemId": null,
+    "systemVersion": null,
+    "coreVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null
+  },
+  "_key": "!macros!XjtyMExZ7czBMwrD"
+}

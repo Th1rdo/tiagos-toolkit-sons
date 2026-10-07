@@ -4,8 +4,8 @@
   "type": "script",
   "img": "modules/tiagos-toolkit-sons/icons/pistola.svg",
   "scope": "global",
-  "command": "/* Pistola — Tiago's Toolkit: Sons */\nconst PASTA = \"modules/tiagos-toolkit-sons/audio/\";\nconst sorteia = l => l[Math.floor(Math.random() * l.length)];\nconst toca = (clips, volume) => foundry.audio.AudioHelper.play(\n  { src: `${PASTA}${sorteia(clips)}.mp3`, volume, autoplay: true, loop: false, channel: \"interface\" }, true);\n\ntoca([\"pistola-1\", \"pistola-2\", \"pistola-3\"], 1);\n",
-  "folder": "7KwA16I78KF5YVld",
+  "command": "/* Pistola — Tiago's Toolkit: Sons */\nfoundry.audio.AudioHelper.play(\n  { src: \"https://assets.forge-vtt.com/66db4a14be3d73c561d3484a/MAIN/AKRASIA/Sons/Efeitos/pistola.mp3\", volume: 0.8, autoplay: true, loop: false, channel: \"interface\" }, true);\n",
+  "folder": null,
   "sort": 1000,
   "ownership": {
     "default": 0
@@ -13,8 +13,8 @@
   "flags": {
     "tiagos-toolkit-sons": {
       "slug": "pistola",
-      "pasta": "Armas de fogo",
-      "versao": "0.2.0"
+      "ficheiro": "pistola",
+      "versao": "0.3.0"
     }
   },
   "_stats": {
